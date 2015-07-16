@@ -1,0 +1,8 @@
+*.sln
+*.designer.cs
+*.csproj
+*.user
+*.config
+bin/
+obj/
+Properties/
