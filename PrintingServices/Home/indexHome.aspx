@@ -4,5 +4,14 @@
 <link rel="stylesheet" href="Home/styleHome.css" />
 
 <div class="container" id="home">
-    TEXT!
+    <h4>Home Page</h4>
+    Welcome to the Edmonds School District Printing Services page. Here you can...<br />
+    <ul>
+        <li>Request a district form to be printed</li>
+        <li>Request business cards to be printed</li>
+        <li>Make a custom printing request</li>
+        <li>Search through your history of requests</li>
+    </ul> 
+    If you need assistance or contact information, check out the Help tab.<br />
+    Thank you.
 </div>

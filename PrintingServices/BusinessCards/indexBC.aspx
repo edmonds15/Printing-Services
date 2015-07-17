@@ -4,5 +4,5 @@
 <link rel="stylesheet" href="BusinessCards/styleBC.css" />
 
 <div class="container" id="bc">
-    Lots of TEXT!
+    <h4>Business Cards Request</h4>
 </div>

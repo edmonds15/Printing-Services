@@ -7,6 +7,7 @@
     <meta charset="UTF-8" />
     <meta name="description" content="Edmonds School District Printing Services allows you to request a print job to the ESD Print Shop" />
     <meta name="author" content="Jonathan Phippen" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Home - Printing Services</title>
 
@@ -32,10 +33,10 @@
             <div id="tabs">
                 <ul>
                     <li><a href="Home/indexHome.aspx">Home</a></li>
-                    <li><a href="History/indexHistory.aspx">Request History</a></li>
                     <li><a href="DistrictForms/indexDF.aspx">District Forms Request</a></li>
                     <li><a href="BusinessCards/indexBC.aspx">Business Cards Request</a></li>
                     <li><a href="CustomPrintshop/indexCP.aspx">Custom Print Shop Request</a></li>
+                    <li><a href="History/indexHistory.aspx">Request History</a></li>
                     <li><a href="Help/indexHelp.aspx">Help</a></li>
                 </ul>
             </div>

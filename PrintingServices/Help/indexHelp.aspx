@@ -4,5 +4,20 @@
 <link rel="stylesheet" href="Help/styleHelp.css" />
 
 <div class="container" id="help">
-    Too much TEXT!
+    <h4>Help</h4>
+    <div id="section">
+        <h5>District Forms Request</h5>
+    </div>
+    <div id="section">
+        <h5>Business Cards Request</h5>
+    </div>
+    <div id="section">
+        <h5>Custom Print Shop Request</h5>
+    </div>
+    <div id="section">
+        <h5>Request History</h5>
+    </div>
+    <div id="section">
+        <h5>Other</h5>
+    </div>
 </div>

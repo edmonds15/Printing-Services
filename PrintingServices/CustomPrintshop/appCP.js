@@ -1,7 +1,7 @@
 ﻿$(function () {
-    $("#cp").css("width", "" + $("#ui-id-10").width() + "px");
+    $("#cp").css("width", "" + $("#ui-id-8").width() + "px");
 
     $(window).resize(function () {
-        $("#cp").css("width", "" + $("#ui-id-10").width() + "px");
+        $("#cp").css("width", "" + $("#ui-id-8").width() + "px");
     });
 });
