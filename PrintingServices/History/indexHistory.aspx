@@ -4,5 +4,5 @@
 <link rel="stylesheet" href="History/styleHistory.css" />
 
 <div class="container" id="history">
-    TEXT Overload!
+    <h4>History</h4>
 </div>
