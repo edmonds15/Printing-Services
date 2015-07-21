@@ -7,17 +7,32 @@
 
     $("button").button();
     $(".spinner").spinner({
-        min: 1,
-        max: 20
+        min: 1
     });
 
     $("#addRow").click(function () {
-        $("#entries").append("<div class=\"entry\">New Entry</div>");
+        $(".spinner").spinner("destroy");
+        $("#entries").append("<div class=\"entry\">" + $(".entry:first").html() + "</div>");
+        $(".spinner").spinner({
+            min: 1
+        });
+    });
+
+    $("#removeRow").click(function () {
+        if ($(".entry").length > 1) {
+            $(".entry:last").remove();
+        }
     });
 
     $("#submit").click(function () {
         $(".entry").each(function (index) {
             console.log("Entry " + index);
         });
+    });
+
+    $("#entries").on("change", ".spinner", function () {
+        if ($(this).val() < 1) {
+            $(this).val(1);
+        }
     });
 });

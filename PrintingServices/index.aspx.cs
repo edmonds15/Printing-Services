@@ -25,6 +25,10 @@ namespace PrintingServices {
                     errormsg.Text = "Unauthorized Credentials.";
                 }
             }
+            if (Session["tab"] == null) {
+                Session["tab"] = "0";
+            }
+            tabNum.Text = Session["tab"].ToString();
         }
 
         private string userType(string user) {

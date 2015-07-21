@@ -1,5 +1,5 @@
-﻿.row, .entry {
-    margin-top: 1.5em;
+﻿.entry, .row {
+    margin-top: 2em;
 }
 .spinner {
     width: 30px;

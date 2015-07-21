@@ -7,6 +7,7 @@
     <h4>District Forms Request</h4>
     <div class="row">
         <button id="addRow">Add Form</button>
+        <button id="removeRow">Remove Form</button>
     </div>
     <div id="entries">
         <div class="entry">
@@ -15,11 +16,11 @@
                 <option>Form Name</option>
             </select>
             <label for="loc">Select a location:</label>
-            <select>
+            <select name="loc">
                 <option>Location Name</option>
             </select>
             <label for="num">Quantity:</label>
-            <input class="spinner" name="num" value="1"/>
+            <input class="spinner" name="num" value="1" />
             <label for="comment">Comments:</label>
             <input type="text" class="comment" name="comment" />
         </div>
