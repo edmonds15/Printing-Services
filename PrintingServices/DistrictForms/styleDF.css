@@ -1,9 +1,6 @@
-﻿.entry, .row {
+﻿.entry {
     margin-top: 2em;
 }
 .spinner {
     width: 30px;
-}
-label {
-    margin-left: 5px;
 }

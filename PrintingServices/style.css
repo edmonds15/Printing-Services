@@ -1,8 +1,14 @@
 ﻿body {
     text-align: center;
 }
+.row {
+    margin-top: 2em;
+}
+label {
+    margin-left: 5px;
+}
 #tab {
-    visibility: hidden;
+    display: none;
 }
 #error {
     background-color: #FA5858;

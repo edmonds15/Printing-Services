@@ -1,1 +1,27 @@
-﻿
+﻿#date {
+    width: 100px;
+}
+#keyCode {
+    width: 70px;
+}
+#acctCode1, #acctCode3, #acctCode5, #acctCode6 {
+    width: 50px;
+}
+#acctCode4 {
+    width: 40px;
+}
+#acctCode2 {
+    width: 30px;
+}
+#left {
+    text-align: right;
+}
+#right {
+    text-align: left;
+}
+#attach {
+    display: inline;
+}
+#instruct {
+    display: inline-block;
+}

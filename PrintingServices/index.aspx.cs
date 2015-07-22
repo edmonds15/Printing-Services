@@ -16,6 +16,7 @@ namespace PrintingServices {
             if (isAdmin(user) && Request.QueryString["user"] != null) {
                 user = Request.QueryString["user"];
             }
+            Session["user"] = user;
             name.Mode = LiteralMode.Encode;
             name.Text = user;
             if (!userType(user).Equals("staff")) {
