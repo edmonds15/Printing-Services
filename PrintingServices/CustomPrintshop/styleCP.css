@@ -1,4 +1,7 @@
-﻿#date {
+﻿#oldIe a {
+    background-color: #F3F781;
+}
+#date {
     width: 100px;
 }
 #keyCode {
@@ -13,15 +16,15 @@
 #acctCode2 {
     width: 30px;
 }
-#left {
+.left {
     text-align: right;
 }
-#right {
+.right {
     text-align: left;
+}
+#fulfill {
+    width: 100px;
 }
 #attach {
     display: inline;
-}
-#instruct {
-    display: inline-block;
 }

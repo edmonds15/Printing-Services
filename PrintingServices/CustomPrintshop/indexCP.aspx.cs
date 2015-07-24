@@ -11,8 +11,6 @@ namespace PrintingServices.CustomPrintshop {
         protected void Page_Load(object sender, EventArgs e) {
             Session["tab"] = "3";
             string user = Session["user"].ToString();
-            name.Value = getFullName(user);
-            date.Value = DateTime.Now.ToShortDateString();
         }
 
         private string getFullName(string user) {

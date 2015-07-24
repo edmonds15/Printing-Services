@@ -16,10 +16,15 @@
         }
     });
 
+    $("#comment").change(function () {
+        $(this).val($(this).val().trim());
+    });
+
     $("#addRow").click(function () {
         $(".spinner").spinner("destroy");
-        var entry = $("<div class=\"entry\">" + $(".entry:first").html() + "</div>");
+        var entry = $("<div class=\"entry\" style=\"display: none\">" + $(".entry:first").html() + "</div>");
         $("#entries").append(entry);
+        $(".entry:last").slideDown(250);
         $(".spinner").spinner({
             min: 1
         });
@@ -27,23 +32,25 @@
 
     $("#removeRow").click(function () {
         if ($(".entry").length > 1) {
-            $(".entry:last").remove();
+            $(".entry:last").slideUp(250, function () {
+                $(this).remove();
+            });
         }
     });
 
-    $("#submit").click(function () {
-        $("#submit").prop("disabled", true);
+    $("#submitDF").click(function () {
+        $(this).prop("disabled", true).css("background", "white");
         $(".entry").each(function (index) {
             console.log("Entry " + index);
         });
-        var alert = $("<div class=\"alert alert-success\" role=\"alert\" id=\"alertSuccess\">Request Submitted successfully!</div>");
+        var alert = $("<div class=\"alert alert-success\" role=\"alert\" id=\"alertSuccess\">Request Submitted Successfully!</div>");
         alert.prependTo("#df");
         $("#alertSuccess").alert();
         window.setTimeout(function () {
-            $("#alertSuccess").fadeTo(500, 0).slideUp(500, function () {
+            $("#alertSuccess").slideUp(250, function () {
                 $(this).remove();
             });
-            $("#submit").prop("disabled", false);
+            $("#submitDF").prop("disabled", false).removeAttr("style");
         }, 3000);
     });
 });

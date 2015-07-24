@@ -6,39 +6,34 @@
 <div class="container" id="cp">
     <h4>Custom Print Shop Request</h4>
     <div class="row">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" runat="server" disabled />
-        <label for="date">Date:</label>
-        <input type="text" id="date" name="date" runat="server" disabled />
+        <div class="col-xs-6">
+            <label for="attach">Attachments:</label>
+            <input type="file" id="attach" name="attach" multiple /><br />
+            <b>Note:</b> Hold Ctrl while selecting files to select multiple attachments.
+        </div>
+        <div class="col-xs-6">
+            <label for="fulfill">Date Needed:</label>
+            <input type="text" id="fulfill" name="fulfill" />
+        </div>
     </div>
     <div class="row">
-        <div class="col-xs-5" id="left">
+        <div class="col-xs-5 left">
             <label for="keyCode">Key Code:</label>
             <input type="text" id="keyCode" name="keyCode" />
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-1">
             OR
         </div>
-        <div class="col-xs-5" id="right">
+        <div class="col-xs-6 right">
             <label for="acctCode">Account Code:</label>
-            <span id="acctCode">
-                <input type="text" id="acctCode1" name="acctCode1" />
-                <input type="text" id="acctCode2" name="acctCode2" />
-                <input type="text" id="acctCode3" name="acctCode3" />
-                <input type="text" id="acctCode4" name="acctCode4" />
-                <input type="text" id="acctCode5" name="acctCode5" />
-                <input type="text" id="acctCode6" name="acctCode6" />
+            <span id="acctGroup">
+                <input type="text" class="acctCode" id="acctCode1" name="acctCode1" />
+                <input type="text" class="acctCode" id="acctCode2" name="acctCode2" />
+                <input type="text" class="acctCode" id="acctCode3" name="acctCode3" />
+                <input type="text" class="acctCode" id="acctCode4" name="acctCode4" />
+                <input type="text" class="acctCode" id="acctCode5" name="acctCode5" />
+                <input type="text" class="acctCode" id="acctCode6" name="acctCode6" />
             </span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="fulfill">Fulfill By Date:</label>
-            <input type="text" id="fulfill" name="fulfill" />
-        </div>
-        <div class="col-xs-6">
-            <label for="attach">Attachments:</label>
-            <input type="file" id="attach" name="attach" multiple />
         </div>
     </div>
     <div class="row">
@@ -46,6 +41,6 @@
         <textarea id="instruct" name="instruct" rows="10" cols="40"></textarea>
     </div>
     <div class="row">
-        <button id="submit">Submit</button>
+        <button id="submitCP">Submit</button>
     </div>
 </div>
