@@ -1,4 +1,7 @@
 ﻿$(function () {
+    var keyCodeValid = true;
+    var accountCodeValid = true;
+
     $("#cp").css("width", "" + $("#ui-id-8").width() + "px");
 
     $(window).resize(function () {
@@ -28,18 +31,67 @@
         $(this).val($(this).val().trim());
         if (isNaN($(this).val())) {
             $(this).css("background-color", "#FA5858");
-            $("#submitCP").prop("disabled", true).css("background", "white");
+            keyCodeValid = false;
         } else {
             $(this).removeAttr("style");
-            $("#submitCP").prop("disabled", false).removeAttr("style");
+            keyCodeValid = true;
+        }
+    });
+
+    $(".acct4Digit").change(function () {
+        $(this).val($(this).val().trim());
+        if (isAcctValid(this, 4)) {
+            $(this).removeAttr("style");
+        } else {
+            $(this).css("background-color", "#FA5858");
+            accountCodeValid = false;
+        }
+    });
+
+    $(".acct3Digit").change(function () {
+        $(this).val($(this).val().trim());
+        if (isAcctValid(this, 3)) {
+            $(this).removeAttr("style");
+        } else {
+            $(this).css("background-color", "#FA5858");
+            accountCodeValid = false;
+        }
+    });
+
+    $(".acct2Digit").change(function () {
+        $(this).val($(this).val().trim());
+        if (isAcctValid(this, 2)) {
+            $(this).removeAttr("style");
+        } else {
+            $(this).css("background-color", "#FA5858");
+            accountCodeValid = false;
         }
     });
 
     $(".acctCode").change(function () {
+        if (isAcctGood("#acctCode1", 4) && isAcctGood("#acctCode2", 2) && isAcctGood("#acctCode3", 4) &&
+                isAcctGood("#acctCode4", 3) && isAcctGood("#acctCode5", 4) && isAcctGood("#acctCode6", 4)) {
+            accountCodeValid = true;
+        }
+    });
 
+    $("input").change(function () {
+        if (!keyCodeValid || !accountCodeValid) {
+            $("#submitCP").prop("disabled", true).css("background", "white");
+        } else {
+            $("#submitCP").prop("disabled", false).removeAttr("style");
+        }
     });
 
     $("#submitCP").click(function () {
         
     });
+
+    function isAcctValid(field, num) {
+        return !isNaN($(field).val()) && ($(field).val().length == num || $(field).val() == "");
+    }
+
+    function isAcctGood(field, num) {
+        return !isNaN($(field).val()) && $(field).val().length == num;
+    }
 });

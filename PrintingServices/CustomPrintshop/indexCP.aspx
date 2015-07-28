@@ -7,13 +7,13 @@
     <h4>Custom Print Shop Request</h4>
     <div class="row">
         <div class="col-xs-6">
+            <label for="fulfill">Date Needed:</label>
+            <input type="text" id="fulfill" name="fulfill" />
+        </div>
+        <div class="col-xs-6">
             <label for="attach">Attachments:</label>
             <input type="file" id="attach" name="attach" multiple /><br />
             <b>Note:</b> Hold Ctrl while selecting files to select multiple attachments.
-        </div>
-        <div class="col-xs-6">
-            <label for="fulfill">Date Needed:</label>
-            <input type="text" id="fulfill" name="fulfill" />
         </div>
     </div>
     <div class="row">
@@ -27,12 +27,12 @@
         <div class="col-xs-6 right">
             <label for="acctCode">Account Code:</label>
             <span id="acctGroup">
-                <input type="text" class="acctCode" id="acctCode1" name="acctCode1" />
-                <input type="text" class="acctCode" id="acctCode2" name="acctCode2" />
-                <input type="text" class="acctCode" id="acctCode3" name="acctCode3" />
-                <input type="text" class="acctCode" id="acctCode4" name="acctCode4" />
-                <input type="text" class="acctCode" id="acctCode5" name="acctCode5" />
-                <input type="text" class="acctCode" id="acctCode6" name="acctCode6" />
+                <input type="text" class="acctCode acct4Digit" id="acctCode1" name="acctCode1" />
+                <input type="text" class="acctCode acct2Digit" id="acctCode2" name="acctCode2" />
+                <input type="text" class="acctCode acct4Digit" id="acctCode3" name="acctCode3" />
+                <input type="text" class="acctCode acct3Digit" id="acctCode4" name="acctCode4" />
+                <input type="text" class="acctCode acct4Digit" id="acctCode5" name="acctCode5" />
+                <input type="text" class="acctCode acct4Digit" id="acctCode6" name="acctCode6" />
             </span>
         </div>
     </div>

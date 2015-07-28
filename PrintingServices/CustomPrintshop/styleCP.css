@@ -7,13 +7,13 @@
 #keyCode {
     width: 70px;
 }
-#acctCode1, #acctCode3, #acctCode5, #acctCode6 {
+.acct4Digit {
     width: 50px;
 }
-#acctCode4 {
+.acct3Digit {
     width: 40px;
 }
-#acctCode2 {
+.acct2Digit {
     width: 30px;
 }
 .left {
