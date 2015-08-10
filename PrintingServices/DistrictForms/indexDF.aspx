@@ -12,17 +12,17 @@
     <div id="entries">
         <div class="entry">
             <label for="form">Form:</label>
-            <select name="form">
-                <option>Form Name</option>
+            <select class="form" name="form">
+                <option value="none">Form Name</option>
             </select>
             <label for="loc">Location:</label>
-            <select name="loc">
-                <option>Location Name</option>
+            <select class="loc" name="loc">
+                <option value="none">Location Name</option>
             </select>
             <label for="num">Quantity:</label>
             <input class="spinner" name="num" value="1" />
             <label for="comment">Comments:</label>
-            <input type="text" id="comment" name="comment" />
+            <input type="text" class="comment" name="comment" />
         </div>
     </div>
     <div class="row">

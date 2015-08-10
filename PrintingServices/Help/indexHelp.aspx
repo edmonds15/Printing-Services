@@ -7,6 +7,7 @@
     <h4>Help</h4>
     <div class="section">
         <h5>District Forms Request</h5>
+        Here you can request standard district forms to be printed.
     </div>
     <div class="section">
         <h5>Business Cards Request</h5>

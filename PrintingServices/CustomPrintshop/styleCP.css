@@ -28,3 +28,6 @@
 #attach {
     display: inline;
 }
+#instruct {
+    max-height: 500px;
+}

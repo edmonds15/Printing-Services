@@ -4,5 +4,20 @@
 <link rel="stylesheet" href="History/styleHistory.css" />
 
 <div class="container" id="history">
-    <h4>History</h4>
+    <h4>History</h4>        
+    <div class="row">
+            <div class="col-xs-3">
+                <b>Date Received</b>
+            </div>
+            <div class="col-xs-3">
+                <b>Job Description</b>
+            </div>
+            <div class="col-xs-3">
+                <b>Job Status</b>
+            </div>
+            <div class="col-xs-3">
+                <b>Date Completed</b>
+            </div>
+        </div>
+    <div id="historyEntries"></div>
 </div>

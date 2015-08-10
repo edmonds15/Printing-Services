@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="getHistory.aspx.cs" Inherits="PrintingServices.History.getHistory" %>
