@@ -6,10 +6,15 @@
 <div class="container" id="cp">
     <h4>Custom Print Shop Request</h4>
     <div class="row">
-        <div class="col-xs-6">
+        <label for="desc">Description:</label>
+        <input type="text" id="desc" name="desc" />
+    </div>
+    <div class="row">
+        <div class="col-xs-5 left">
             <label for="fulfill">Date Needed:</label>
             <input type="text" id="fulfill" name="fulfill" />
         </div>
+        <div class="col-xs-1"></div>
         <div class="col-xs-6">
             <label for="attach">Attachments:</label>
             <input type="file" id="attach" name="attach" multiple /><br />

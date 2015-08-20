@@ -1,8 +1,14 @@
 ﻿#oldIe a {
     background-color: #F3F781;
 }
-#date {
+#desc {
+    width: 250px;
+}
+#fulfill {
     width: 100px;
+}
+#attach {
+    display: inline;
 }
 #keyCode {
     width: 70px;
@@ -21,12 +27,6 @@
 }
 .right {
     text-align: left;
-}
-#fulfill {
-    width: 100px;
-}
-#attach {
-    display: inline;
 }
 #instruct {
     max-height: 500px;

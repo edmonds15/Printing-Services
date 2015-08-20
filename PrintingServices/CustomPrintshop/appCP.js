@@ -1,4 +1,6 @@
 ﻿$(function () {
+    $("#progressbar").css("display", "none");
+
     var keyCodeValid = true;
     var accountCodeValid = true;
 
@@ -23,12 +25,6 @@
         $("#cp").prepend(msg);
         $("#attach").prop("disabled", true);
     }
-
-    $("#attach").change(function () {
-        $.each($(this)[0].files, function (index, value) {
-            console.log(value.name);
-        });
-    });
 
     $("#keyCode").change(function () {
         $(this).val($(this).val().trim());
@@ -82,6 +78,43 @@
 
     $("#submitCP").click(function () {
         $(this).button("option", "disabled", true);
+        var data = new FormData();
+        data.append("desc", $("#desc").val());
+        data.append("fulfill", $("#fulfill").val());
+        for (var i = 0; i < $("#attach")[0].files.length; i++) {
+            data.append("file" + i, $("#attach")[0].files[i]);
+        }
+        if ($("#keyCode").val() != undefined || $("#keyCode").val() != "") {
+            data.append("keyCode", $("#keyCode").val());
+        }
+        var acctCode = $("#acctCode1").val() + " " + $("#acctCode2").val() + " " + $("#acctCode3").val() +
+                 " " + $("#acctCode4").val() + " " + $("#acctCode5").val() + " " + $("#acctCode6").val();
+        if (acctCode != "     ") {
+            data.append("acctCode", acctCode);
+        }
+        data.append("instruct", $("#instruct").val());
+        $.ajax({
+            method: "POST",
+            url: "CustomPrintshop/recordCP.aspx",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(result) {
+                console.log(result);
+            }
+        });
+        $("#desc").val("");
+        $("#fulfill").val("");
+        $("#attach").wrap("<form>").closest("form").get(0).reset();
+        $("#attach").unwrap();
+        $("#keyCode").val("");
+        $("#acctCode1").val("");
+        $("#acctCode2").val("");
+        $("#acctCode3").val("");
+        $("#acctCode4").val("");
+        $("#acctCode5").val("");
+        $("#acctCode6").val("");
+        $("#instruct").val("");
         var alert = $("<div class=\"alert alert-success\" role=\"alert\" id=\"alertSuccess\">Request Submitted Successfully!</div>");
         alert.prependTo("#cp");
         $("#alertSuccess").alert();
@@ -89,7 +122,6 @@
             $("#alertSuccess").slideUp(250, function () {
                 $(this).remove();
             });
-            $("#submitCP").button("option", "disabled", false);
         }, 3000);
     });
 

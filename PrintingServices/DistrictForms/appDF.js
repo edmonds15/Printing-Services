@@ -1,4 +1,8 @@
 ﻿$(function () {
+    $("#progressbar").css("display", "none");
+
+    $.ajaxSetup({ async: false });
+
     $("#df").css("width", "" + $("#ui-id-4").width() + "px");
     $(window).resize(function () {
         $("#df").css("width", "" + $("#ui-id-4").width() + "px");
@@ -6,8 +10,12 @@
 
     $("button").button();
     $("#submitDF").button("option", "disabled", true);
+    $("#removeRow").button("option", "disabled", true);
     $(".spinner").spinner({
         min: 1
+    });
+    $("#progressbar").progressbar({
+        value: false
     });
 
     $.get("DistrictForms/getForms.aspx", function (data) {
@@ -34,13 +42,28 @@
         }
     });
 
-    $("select").change(function () {
-        if ($(".form").val() != "none" && $(".loc").val() != "none") {
-            $("#submitDF").button("option", "disabled", false);
-        } else {
+    //$("select").change(function () {
+    //    if ($(".form").val() != "none" && $(".loc").val() != "none") {
+    //        $("#submitDF").button("option", "disabled", false);
+    //    } else {
+    //        $("#submitDF").button("option", "disabled", true);
+    //    }
+    //});
+
+    $("#entries").on("change", "select", function () {
+        console.log($("select").length);
+        var allValid = true;
+        $("select").each(function (index, value) {
+            if ($(this).val() == "none") {
+                allValid = false;
+            }
+        });
+        if (!allValid) {
             $("#submitDF").button("option", "disabled", true);
+        } else {
+            $("#submitDF").button("option", "disabled", false);
         }
-    });
+    })
 
     $("#entries").on("change", ".spinner", function () {
         if ($(this).val() < 1) {
@@ -60,14 +83,17 @@
         $(".spinner").spinner({
             min: 1
         });
+        $("#removeRow").button("option", "disabled", false);
+        $("#submitDF").button("option", "disabled", true);
     });
 
     $("#removeRow").click(function () {
-        if ($(".entry").length > 1) {
-            $(".entry:last").slideUp(250, function () {
-                $(this).remove();
-            });
+        if ($(".entry").length == 2) {
+            $("#removeRow").button("option", "disabled", true);
         }
+        $(".entry:last").slideUp(250, function () {
+            $(this).remove();
+        });
     });
 
     $("#submitDF").click(function () {
@@ -78,8 +104,19 @@
             var num = $(".spinner:eq(" + index + ")").val();
             var comment = $(".comment:eq(" + index + ")").val();
             var entry = { form: form, loc: loc, num: num, comment: comment };
-            console.log(entry);
+            $.post("DistrictForms/recordDF.aspx", entry, function (result) {
+                console.log(result);
+            });
         });
+        var entryNum = $(".entry").length;
+        while (entryNum > 1) {
+            $(".entry:last").remove();
+            entryNum -= 1;
+        }
+        $(".form").val("none");
+        $(".loc").val("none");
+        $(".spinner").val(1);
+        $(".comment").val("");
         var alert = $("<div class=\"alert alert-success\" role=\"alert\" id=\"alertSuccess\">Request Submitted Successfully!</div>");
         alert.prependTo("#df");
         $("#alertSuccess").alert();
@@ -87,7 +124,6 @@
             $("#alertSuccess").slideUp(250, function () {
                 $(this).remove();
             });
-            $("#submitDF").button("option", "disabled", false);
         }, 3000);
     });
 });

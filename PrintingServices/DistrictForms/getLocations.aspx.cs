@@ -24,7 +24,7 @@ namespace PrintingServices.DistrictForms {
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\miso\shares\Groups\DCP\Testing\Jonathan\PS4_be_Jonathan.accdb");
             try {
                 conn.Open();
-                string query = "SELECT locationName FROM WebRef_DF_Locations";
+                string query = "SELECT location FROM WebRef_DF_Locations";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
                 OleDbDataReader reader = cmd.ExecuteReader();
 

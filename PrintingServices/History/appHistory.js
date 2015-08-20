@@ -1,4 +1,6 @@
 ﻿$(function () {
+    $("#progressbar").css("display", "none");
+
     var fullHistory = [];
     var startingEntry = 0;
 
@@ -30,7 +32,9 @@
         }
         for (var i = startingEntry; i < startingEntry + printEntries; i++) {
             var entryInfo = fullHistory[i];
-            console.log(entryInfo);
+            if (entryInfo.completed == undefined) {
+                entryInfo.completed = "";
+            }
             var html = "<div class=\"row\"><div class=\"col-xs-3\">" + entryInfo.received + "</div>";
             html += "<div class=\"col-xs-3\">" + entryInfo.description + "</div>";
             html += "<div class=\"col-xs-3\">" + entryInfo.status + "</div>";

@@ -1,8 +1,24 @@
 ﻿body {
     text-align: center;
+    color: white;
+}
+#main {
+    background-color: #002244;
+}
+#ui-id-2, #ui-id-4, #ui-id-6, #ui-id-8, #ui-id-10, #ui-id-12 {
+    background-color: #69BE28;
 }
 .row {
     margin-top: 2em;
+}
+#progressbar {
+    position: relative;
+}
+.progress-label {
+    position: absolute;
+    left: 50%;
+    top: 4px;
+    font-weight: bold;
 }
 #tab {
     display: none;
