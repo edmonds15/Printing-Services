@@ -52,13 +52,24 @@ namespace PrintingServices.DistrictForms {
                 Response.End();
             }
 
-
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\miso\shares\Groups\DCP\Testing\Jonathan\PS4_be_Jonathan.accdb");
             try {
                 conn.Open();
-                string query = @"INSERT INTO [PS Jobs] (Reference_No, Description, KeyCode, Account_Code, Requester, Requester_phone, Requester_school_dept, Date_Recieved, Instructions, Job_Status, Notes)
-                                VALUES ('FormReq', @desc, 30, '9700 13 0570 097 7441 0000', @name, @phone, @requesterLoc, @received, @loc, 'Processed', @comment)";
+                string query = @"SELECT * FROM [PS Jobs] WHERE Reference_No LIKE 'FormReq #%' ORDER BY ID DESC";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
+                OleDbDataReader reader = cmd.ExecuteReader();
+                string refNo = "";
+                string newRefNo = "FormReq #1";
+                if (reader.Read()) {
+                    refNo = reader.GetString(reader.GetOrdinal("Reference_No")).Split("#".ToCharArray())[1];
+                    newRefNo = "FormReq #" + (Convert.ToInt32(refNo) + 1);
+                }
+                reader.Close();
+
+                query = @"INSERT INTO [PS Jobs] (Reference_No, Description, KeyCode, Account_Code, Requester, Requester_phone, Requester_school_dept, Date_Recieved, Instructions, Job_Status, Notes)
+                                VALUES (@refNo, @desc, 30, '9700 13 0570 097 7441 0000', @name, @phone, @requesterLoc, @received, @loc, 'Processed', @comment)";
+                cmd = new OleDbCommand(query, conn);
+                cmd.Parameters.AddWithValue("@refNo", newRefNo);
                 cmd.Parameters.AddWithValue("@desc", description);
                 cmd.Parameters.AddWithValue("@name", name);
                 cmd.Parameters.AddWithValue("@phone", phone);

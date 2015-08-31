@@ -11,9 +11,4 @@
         var mainHeight = $(".container:first").height() + 200;
         $("#main").css("height", mainHeight + "px");
     });
-
-    $("li").click(function () {
-        console.log("Tab Clicked");
-        $("#progressbar").css("display", "block");
-    })
 });

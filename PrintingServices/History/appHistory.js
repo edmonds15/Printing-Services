@@ -1,6 +1,4 @@
 ﻿$(function () {
-    $("#progressbar").css("display", "none");
-
     var fullHistory = [];
     var startingEntry = 0;
 

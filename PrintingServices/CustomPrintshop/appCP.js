@@ -1,6 +1,4 @@
 ﻿$(function () {
-    $("#progressbar").css("display", "none");
-
     var keyCodeValid = true;
     var accountCodeValid = true;
 
