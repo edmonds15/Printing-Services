@@ -39,7 +39,7 @@ namespace PrintingServices.DistrictForms {
                 conn.Close();
             } catch (Exception err) {
                 conn.Close();
-                Response.Write(err);
+                Response.Write(err.Message);
             }
         }
     }

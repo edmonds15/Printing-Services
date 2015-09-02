@@ -48,7 +48,7 @@ namespace PrintingServices.DistrictForms {
                     requesterLoc = result.Properties["physicaldeliveryofficename"][0].ToString();
                 }
             } catch (Exception err) {
-                Response.Write(err);
+                Response.Write(err.Message);
                 Response.End();
             }
 
@@ -87,7 +87,7 @@ namespace PrintingServices.DistrictForms {
                 conn.Close();
             } catch (Exception err) {
                 conn.Close();
-                Response.Write(err);
+                Response.Write(err.Message);
             }
         }
     }

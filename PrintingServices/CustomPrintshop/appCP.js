@@ -1,20 +1,20 @@
 ﻿$(function () {
     var keyCodeValid = true;
     var accountCodeValid = true;
+    var badBrowser = false;
 
-    $("#cp").css("width", "" + $("#ui-id-8").width() + "px");
-    $("#instruct").css("max-width", "" + $("#ui-id-8").width() + "px");
+    $("#cpError").hide();
 
+    $("#cp").css("width", "" + $("#ui-id-6").width() + "px");
     $(window).resize(function () {
-        $("#cp").css("width", "" + $("#ui-id-8").width() + "px");
-        $("#instruct").css("max-width", "" + $("#ui-id-8").width() + "px");
+        $("#cp").css("width", "" + $("#ui-id-6").width() + "px");
     });
 
     $("button").button();
     $("#submitCP").button("option", "disabled", true);
     $("#fulfill").datepicker({
         dateFormat: "m/d/yy",
-        minDate: 0,
+        minDate: 3,
         showAnim: "fadeIn"
     });
 
@@ -22,6 +22,7 @@
         var msg = $("<div id=\"oldIE\"><b>Alert:</b> You appear to be using Internet Explorer version 9 or below. Uploading attachments is not supported in this browser. Please upgrade to the latest version <a href=\"http://windows.microsoft.com/en-us/internet-explorer/download-ie\">here</a> to send an attachment.</div>");
         $("#cp").prepend(msg);
         $("#attach").prop("disabled", true);
+        badBrowser = true;
     }
 
     $("#keyCode").change(function () {
@@ -40,7 +41,13 @@
         if (isAcctValid(this, 4)) {
             $(this).removeAttr("style");
         } else {
-            $(this).css("background-color", "#FA5858");
+            $(this).css("background-color", "#FA5858"); 
+        }
+    });
+
+    $(".acct4Digit").keyup(function () {
+        if ($(this).val().length == 4) {
+            $(this).next("input").focus();
         }
     });
 
@@ -53,12 +60,24 @@
         }
     });
 
+    $(".acct3Digit").keyup(function () {
+        if ($(this).val().length == 3) {
+            $(this).next("input").focus();
+        }
+    });
+
     $(".acct2Digit").change(function () {
         $(this).val($(this).val().trim());
         if (isAcctValid(this, 2)) {
             $(this).removeAttr("style");
         } else {
             $(this).css("background-color", "#FA5858");
+        }
+    });
+
+    $(".acct2Digit").keyup(function () {
+        if ($(this).val().length == 2) {
+            $(this).next("input").focus();
         }
     });
 
@@ -76,31 +95,44 @@
 
     $("#submitCP").click(function () {
         $(this).button("option", "disabled", true);
-        var data = new FormData();
-        data.append("desc", $("#desc").val());
-        data.append("fulfill", $("#fulfill").val());
-        for (var i = 0; i < $("#attach")[0].files.length; i++) {
-            data.append("file" + i, $("#attach")[0].files[i]);
-        }
-        if ($("#keyCode").val() != undefined || $("#keyCode").val() != "") {
-            data.append("keyCode", $("#keyCode").val());
-        }
-        var acctCode = $("#acctCode1").val() + " " + $("#acctCode2").val() + " " + $("#acctCode3").val() +
-                 " " + $("#acctCode4").val() + " " + $("#acctCode5").val() + " " + $("#acctCode6").val();
-        if (acctCode != "     ") {
-            data.append("acctCode", acctCode);
-        }
-        data.append("instruct", $("#instruct").val());
-        $.ajax({
-            method: "POST",
-            url: "CustomPrintshop/recordCP.aspx",
-            data: data,
-            processData: false,
-            contentType: false,
-            success: function(result) {
-                console.log(result);
+        if (!badBrowser) {
+            var data = new FormData();
+            data.append("desc", $("#desc").val());
+            data.append("fulfill", $("#fulfill").val());
+            for (var i = 0; i < $("#attach")[0].files.length; i++) {
+                data.append("file" + i, $("#attach")[0].files[i]);
             }
-        });
+            if ($("#keyCode").val() != undefined || $("#keyCode").val() != "") {
+                data.append("keyCode", $("#keyCode").val());
+            }
+            var acctCode = $("#acctCode1").val() + " " + $("#acctCode2").val() + " " + $("#acctCode3").val() +
+                     " " + $("#acctCode4").val() + " " + $("#acctCode5").val() + " " + $("#acctCode6").val();
+            if (acctCode != "     ") {
+                data.append("acctCode", acctCode);
+            }
+            data.append("instruct", $("#instruct").val());
+            $.ajax({
+                method: "POST",
+                url: "CustomPrintshop/recordCP.aspx",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    console.log(result);
+                }
+            });
+        } else {
+            var desc = $("#desc").val();
+            var fulfill = $("#fulfill").val();
+            var keyCode = $("#keyCode").val();
+            var acctCode = $("#acctCode1").val() + " " + $("#acctCode2").val() + " " + $("#acctCode3").val() +
+                     " " + $("#acctCode4").val() + " " + $("#acctCode5").val() + " " + $("#acctCode6").val();
+            var instruct = $("#instruct").val();
+            var data = { desc: desc, fulfill: fulfill, keyCode: keyCode, acctCode: acctCode, instruct: instruct };
+            $.post("CustomPrintshop/recordCP.aspx", data, function (result) {
+                console.log(result);
+            });
+        }
         $("#desc").val("");
         $("#fulfill").val("");
         $("#attach").wrap("<form>").closest("form").get(0).reset();
@@ -124,7 +156,7 @@
     });
 
     function validateInput() {
-        if (!keyCodeValid || !accountCodeValid || ($("#keyCode").val() == "" && isAcctAllEmpty())) {
+        if (!keyCodeValid || !accountCodeValid || ($("#keyCode").val() == "" && isAcctAllEmpty()) || $("#desc").val() == "") {
             $("#submitCP").button("option", "disabled", true);
         } else {
             $("#submitCP").button("option", "disabled", false);

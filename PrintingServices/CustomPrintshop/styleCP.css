@@ -1,5 +1,10 @@
-﻿#oldIe a {
+﻿#oldIE {
     background-color: #F3F781;
+    border: 1px solid;
+    border-radius: 10px;
+}
+#oldIE a {
+    color: blue;
 }
 #desc {
     width: 250px;
@@ -29,5 +34,6 @@
     text-align: left;
 }
 #instruct {
-    max-height: 500px;
+    overflow: auto;
+    resize: none;
 }

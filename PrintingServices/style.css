@@ -11,19 +11,10 @@
 .row {
     margin-top: 2em;
 }
-#progressbar {
-    position: relative;
-}
-.progress-label {
-    position: absolute;
-    left: 50%;
-    top: 4px;
-    font-weight: bold;
-}
 #tab {
     display: none;
 }
-#error {
+.error {
     background-color: #FA5858;
     font-size: 2em;
     margin-top: 1em;

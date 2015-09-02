@@ -1,9 +1,11 @@
 ﻿$(function () {
     $.ajaxSetup({ async: false });
 
-    $("#df").css("width", "" + $("#ui-id-4").width() + "px");
+    $("#dfError").hide();
+
+    $("#df").css("width", "" + $("#ui-id-8").width() + "px");
     $(window).resize(function () {
-        $("#df").css("width", "" + $("#ui-id-4").width() + "px");
+        $("#df").css("width", "" + $("#ui-id-8").width() + "px");
     });
 
     $("button").button();
@@ -21,6 +23,8 @@
                 $(".form").append(option);
             });
         } else {
+            $("#dfBody").hide();
+            $("#dfError").show().append(document.createTextNode(data));
             console.log(data);
         }
     });
@@ -33,6 +37,8 @@
                 $(".loc").append(option);
             });
         } else {
+            $("#dfBody").hide();
+            $("#dfError").show().append(document.createTextNode(data));
             console.log(data);
         }
     });

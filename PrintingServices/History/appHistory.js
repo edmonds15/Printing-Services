@@ -31,11 +31,12 @@
         for (var i = startingEntry; i < startingEntry + printEntries; i++) {
             var entryInfo = fullHistory[i];
             if (entryInfo.completed == undefined) {
-                entryInfo.completed = "";
+                entryInfo.completed = "Not completed yet";
             }
-            var html = "<div class=\"row\"><div class=\"col-xs-3\">" + entryInfo.received + "</div>";
+            var html = "<div class=\"row\"><div class=\"col-xs-2\">" + entryInfo.refNo + "</div>";
+            html += "<div class=\"col-xs-2\">" + entryInfo.received + "</div>";
             html += "<div class=\"col-xs-3\">" + entryInfo.description + "</div>";
-            html += "<div class=\"col-xs-3\">" + entryInfo.status + "</div>";
+            html += "<div class=\"col-xs-2\">" + entryInfo.status + "</div>";
             html += "<div class=\"col-xs-3\">" + entryInfo.completed + "</div></div>";
             var entry = $(html);
             $("#historyEntries").append(entry);

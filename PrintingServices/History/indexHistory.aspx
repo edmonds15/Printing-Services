@@ -5,14 +5,17 @@
 
 <div class="container" id="history">
     <h4>History</h4>        
-    <div class="row">
-            <div class="col-xs-3">
+        <div class="row">
+            <div class="col-xs-2">
+                <b>Job ID</b>
+            </div>
+            <div class="col-xs-2">
                 <b>Date Received</b>
             </div>
             <div class="col-xs-3">
                 <b>Job Description</b>
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <b>Job Status</b>
             </div>
             <div class="col-xs-3">

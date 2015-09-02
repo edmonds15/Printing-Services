@@ -27,7 +27,6 @@ namespace PrintingServices.DistrictForms {
                 string query = "SELECT form FROM WebRef_District_Forms";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
                 OleDbDataReader reader = cmd.ExecuteReader();
-
                 while (reader.Read()) {
                     forms.Add(reader.GetString(0));
                 }
@@ -39,7 +38,7 @@ namespace PrintingServices.DistrictForms {
                 conn.Close();
             } catch (Exception err) {
                 conn.Close();
-                Response.Write(err);
+                Response.Write(err.Message);
             }
         }
     }

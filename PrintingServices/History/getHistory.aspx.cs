@@ -45,7 +45,7 @@ namespace PrintingServices.History {
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\miso\shares\Groups\DCP\Testing\Jonathan\PS4_be_Jonathan.accdb");
             try {
                 conn.Open();
-                string query = "SELECT Description, Date_Recieved, Job_Status, Date_completed FROM [PS Jobs] WHERE Requester = @requesterFull OR Requester = @requesterPartial ORDER BY ID DESC";
+                string query = "SELECT Reference_No, Description, Date_Recieved, Job_Status, Date_completed FROM [PS Jobs] WHERE Requester = @requesterFull OR Requester = @requesterPartial ORDER BY ID DESC";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
                 cmd.Parameters.AddWithValue("@requesterFull", name);
                 cmd.Parameters.AddWithValue("@requesterPartial", firstName + " " + lastName);
@@ -53,6 +53,9 @@ namespace PrintingServices.History {
 
                 while (reader.Read()) {
                     Dictionary<string, string> entry = new Dictionary<string, string>();
+                    if (!reader.IsDBNull(reader.GetOrdinal("Reference_No"))) {
+                        entry.Add("refNo", reader.GetString(reader.GetOrdinal("Reference_No")));
+                    }
                     if (!reader.IsDBNull(reader.GetOrdinal("Date_Recieved"))) {
                         entry.Add("description", reader.GetString(reader.GetOrdinal("Description")));
                     }

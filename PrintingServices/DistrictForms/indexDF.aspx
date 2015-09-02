@@ -5,27 +5,34 @@
 
 <div class="container" id="df">
     <h4>District Forms Request</h4>
-    <div class="row">
-        <button id="addRow">Add Form</button>
-        <button id="removeRow">Remove Form</button>
+    <div class="row error" id="dfError">
+        ERROR:<br />
+        Sorry, something went wrong. Please contact for assistance.<br />
+        Error message: 
     </div>
-    <div id="entries">
-        <div class="entry">
-            <label for="form">Form:</label>
-            <select class="form" name="form">
-                <option value="none">Form Name</option>
-            </select>
-            <label for="loc">Location:</label>
-            <select class="loc" name="loc">
-                <option value="none">Location Name</option>
-            </select>
-            <label for="num">Quantity:</label>
-            <input class="spinner" name="num" value="1" />
-            <label for="comment">Comments:</label>
-            <input type="text" class="comment" name="comment" />
+    <div id="dfBody">
+        <div class="row">
+            <button id="addRow">Add Form</button>
+            <button id="removeRow">Remove Form</button>
         </div>
-    </div>
-    <div class="row">
-        <button id="submitDF">Submit</button>
+        <div id="entries">
+            <div class="entry">
+                <label for="form">Form:</label>
+                <select class="form" name="form">
+                    <option value="none">Form Name</option>
+                </select>
+                <label for="loc">Location:</label>
+                <select class="loc" name="loc">
+                    <option value="none">Location Name</option>
+                </select>
+                <label for="num">Quantity:</label>
+                <input class="spinner" name="num" value="1" />
+                <label for="comment">Comments:</label>
+                <input type="text" class="comment" name="comment" />
+            </div>
+        </div>
+        <div class="row">
+            <button id="submitDF">Submit</button>
+        </div>
     </div>
 </div>

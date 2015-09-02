@@ -21,7 +21,10 @@ namespace PrintingServices.CustomPrintshop {
             }
 
             string desc = Request.Form["desc"].ToString();
-            string fulfill = Request.Form["fulfill"].ToString();
+            string fulfill = "";
+            if (Request.Form["fulfill"] != null) {
+                fulfill = Request.Form["fulfill"].ToString();
+            }
             HttpFileCollection files = Request.Files;
             string comment = "";
             if (files.Count == 0) {
@@ -73,10 +76,10 @@ namespace PrintingServices.CustomPrintshop {
                 OleDbCommand cmd = new OleDbCommand(query, conn);
                 OleDbDataReader reader = cmd.ExecuteReader();
                 string refNo = "";
-                string newRefNo = "CustomReq #1";
+                string newRefNo = "CstmReq #1";
                 if (reader.Read()) {
                     refNo = reader.GetString(reader.GetOrdinal("Reference_No")).Split("#".ToCharArray())[1];
-                    newRefNo = "CustomReq #" + (Convert.ToInt32(refNo) + 1);
+                    newRefNo = "CstmReq #" + (Convert.ToInt32(refNo) + 1);
                 }
                 reader.Close();
 

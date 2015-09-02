@@ -1,3 +1,6 @@
 ﻿.section {
     border-top: 1px solid;
 }
+.section a {
+    color: blue;
+}
