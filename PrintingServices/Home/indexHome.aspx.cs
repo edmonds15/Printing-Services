@@ -9,6 +9,7 @@ using System.IO;
 namespace PrintingServices.Home {
     public partial class index : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
+            // Set recently viewed tab as Home tab.
             Session["tab"] = "0";
         }
     }

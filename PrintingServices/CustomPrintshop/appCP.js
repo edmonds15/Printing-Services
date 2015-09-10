@@ -25,6 +25,12 @@
         badBrowser = true;
     }
 
+    $("#cp").keyup(function (event) {
+        if (event.which == 13) {
+            $("#submitCP").click();
+        }
+    });
+
     $("#keyCode").change(function () {
         $(this).val($(this).val().trim());
         if (isNaN($(this).val())) {
@@ -81,7 +87,7 @@
         }
     });
 
-    $(".acctCode").change(function () {
+    $(".acctCode").keyup(function () {
         if (isAcctAllGood() || isAcctAllEmpty()) {
             accountCodeValid = true;
         } else {
@@ -89,7 +95,7 @@
         }
     });
 
-    $("input").change(function () {
+    $(".input").keyup(function () {
         validateInput();
     });
 
@@ -99,6 +105,7 @@
             var data = new FormData();
             data.append("desc", $("#desc").val());
             data.append("fulfill", $("#fulfill").val());
+            var numFiles = $("#attach")[0].files.length;
             for (var i = 0; i < $("#attach")[0].files.length; i++) {
                 data.append("file" + i, $("#attach")[0].files[i]);
             }
@@ -119,6 +126,26 @@
                 contentType: false,
                 success: function (result) {
                     console.log(result);
+                    var results = result.split("\n");
+                    if (results.length != 3) {
+                        $("#cpBody").hide();
+                        $("#cpError").show();
+                        $("#cpError").append(document.createTextNode(result));
+                        return;
+                    }
+                    var reqId = results[0].split(":")[1];
+                    if (reqId == "" || results[1].charAt(0) != "1" || results[2].charAt(0) != numFiles) {
+                        $("#cpBody").hide();
+                        $("#cpError").show();
+                        $("#cpError").append(document.createTextNode("Request processed incorrectly"));
+                        return;
+                    }
+                    var alertMsg = "<div class=\"alert alert-success\" role=\"alert\" id=\"alertSuccess\">";
+                    alertMsg += "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>";
+                    alertMsg += "Request Submitted Successfully! Your Request ID is: <b>" + reqId + "</b></div>";
+                    var alert = $(alertMsg);
+                    alert.prependTo("#cp");
+                    $("#alertSuccess").alert();
                 }
             });
         } else {
@@ -145,18 +172,10 @@
         $("#acctCode5").val("");
         $("#acctCode6").val("");
         $("#instruct").val("");
-        var alert = $("<div class=\"alert alert-success\" role=\"alert\" id=\"alertSuccess\">Request Submitted Successfully!</div>");
-        alert.prependTo("#cp");
-        $("#alertSuccess").alert();
-        window.setTimeout(function () {
-            $("#alertSuccess").slideUp(250, function () {
-                $(this).remove();
-            });
-        }, 3000);
     });
 
     function validateInput() {
-        if (!keyCodeValid || !accountCodeValid || ($("#keyCode").val() == "" && isAcctAllEmpty()) || $("#desc").val() == "") {
+        if (!keyCodeValid || !accountCodeValid || ($("#keyCode").val() == "" && isAcctAllEmpty()) || $("#desc").val() == "" || $("#instruct").val() == "") {
             $("#submitCP").button("option", "disabled", true);
         } else {
             $("#submitCP").button("option", "disabled", false);
@@ -165,10 +184,6 @@
 
     function isAcctValid(field, num) {
         return !isNaN($(field).val()) && ($(field).val().length == num || $(field).val() == "");
-    }
-
-    function isKeyCodeValid() {
-        return !isNaN($("#keyCode").val()) && $("#keyCode").val()
     }
 
     function isAcctAllGood() {

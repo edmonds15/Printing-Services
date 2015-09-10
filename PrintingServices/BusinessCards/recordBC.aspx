@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="recordBC.aspx.cs" Inherits="PrintingServices.BusinessCards.recordBC" %>

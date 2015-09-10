@@ -7,7 +7,7 @@
     <h4>History</h4>        
         <div class="row">
             <div class="col-xs-2">
-                <b>Job ID</b>
+                <b>Request ID</b>
             </div>
             <div class="col-xs-2">
                 <b>Date Received</b>

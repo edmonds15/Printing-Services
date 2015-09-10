@@ -43,6 +43,12 @@
         }
     });
 
+    $("#df").keyup(function (event) {
+        if (event.which == 13) {
+            $("#submitDF").click();
+        }
+    });
+
     $("#entries").on("change", "select", function () {
         var allValid = true;
         $("select").each(function (index, value) {
@@ -90,6 +96,7 @@
 
     $("#submitDF").click(function () {
         $(this).button("option", "disabled", true);
+        var error = false;
         $(".entry").each(function (index) {
             var form = $(".form:eq(" + index + ")").val();
             var loc = $(".loc:eq(" + index + ")").val();
@@ -97,7 +104,12 @@
             var comment = $(".comment:eq(" + index + ")").val();
             var entry = { form: form, loc: loc, num: num, comment: comment };
             $.post("DistrictForms/recordDF.aspx", entry, function (result) {
-                console.log(result);
+                if (result.charAt(0) != "1" && !error) {
+                    console.log(result);
+                    $("#dfBody").hide();
+                    $("#dfError").show().append(document.createTextNode(result));
+                    error = true;
+                }
             });
         });
         var entryNum = $(".entry").length;

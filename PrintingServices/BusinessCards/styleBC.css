@@ -1,1 +1,35 @@
-﻿
+﻿#cardInfo {
+    position: relative;
+}
+.phoneNum {
+    width: 134px;
+}
+img {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(0, -50%);
+    width: 189px;
+    height: 108px;
+}
+.spinner {
+    width: 30px;
+}
+#keyCode {
+    width: 70px;
+}
+.acct4Digit {
+    width: 50px;
+}
+.acct3Digit {
+    width: 40px;
+}
+.acct2Digit {
+    width: 30px;
+}
+.left {
+    text-align: right;
+}
+.right {
+    text-align: left;
+}

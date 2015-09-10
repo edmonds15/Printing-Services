@@ -72,7 +72,7 @@ namespace PrintingServices.CustomPrintshop {
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\miso\shares\Groups\DCP\Testing\Jonathan\PS4_be_Jonathan.accdb");
             try {
                 conn.Open();
-                string query = @"SELECT * FROM [PS Jobs] WHERE Reference_No LIKE 'CustomReq #%' ORDER BY ID DESC";
+                string query = @"SELECT * FROM [PS Jobs] WHERE Reference_No LIKE 'CstmReq #%' ORDER BY ID DESC";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
                 OleDbDataReader reader = cmd.ExecuteReader();
                 string refNo = "";
@@ -82,6 +82,7 @@ namespace PrintingServices.CustomPrintshop {
                     newRefNo = "CstmReq #" + (Convert.ToInt32(refNo) + 1);
                 }
                 reader.Close();
+                Response.Write("Request ID:" + newRefNo + "\n");
 
                 query = @"INSERT INTO [PS Jobs] (Reference_No, Description, KeyCode, Account_Code, Requester, Requester_phone, Requester_school_dept, Date_Recieved, Date_Needed, Instructions, Job_Status, Notes)
                                 VALUES (@refNo, @desc, @keyCode, @acctCode, @name, @phone, @requesterLoc, @received, @fulfill, @instruct, 'Processed', @comment)";
@@ -126,9 +127,9 @@ namespace PrintingServices.CustomPrintshop {
                     cmd.ExecuteNonQuery();
                 }
                 if (files.Count == 1) {
-                    Response.Write(files.Count + " attachment saved from recordCP.\n");
+                    Response.Write(files.Count + " attachment saved from recordCP.");
                 } else {
-                    Response.Write(files.Count + " attachments saved from recordCP.\n");
+                    Response.Write(files.Count + " attachments saved from recordCP.");
                 }
                 conn.Close();
 
