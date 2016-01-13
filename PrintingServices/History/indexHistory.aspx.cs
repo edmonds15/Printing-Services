@@ -9,11 +9,8 @@ using System.Web.UI.WebControls;
 namespace PrintingServices.History {
     public partial class index : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
-            Session["tab"] = "4";
-            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\miso\shares\Groups\DCP\Testing\Jonathan\PS4_be_Jonathan.accdb");
-            conn.Open();
-            string query = "";
-            conn.Close();
+            // Set recently viewed tab as History tab.
+            Session["tab"] = "6";
         }
     }
 }

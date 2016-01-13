@@ -7,8 +7,8 @@ using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace PrintingServices.DistrictForms {
-    public partial class getLocations : System.Web.UI.Page {
+namespace PrintingServices.CatalogItem {
+    public partial class getItems : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
             // Check whether the user is authorized
             string user = HttpContext.Current.User.Identity.Name.Split("\\".ToCharArray())[1];
@@ -21,24 +21,23 @@ namespace PrintingServices.DistrictForms {
                 Response.End();
             }
 
-            List<string> locations = new List<string>();
-            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\miso\shares\Groups\DCP\Testing\Jonathan\PS4_be_Jonathan.accdb");
+            List<string> items = new List<string>();
+            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\miso\shares\Groups\DCP\PS Data\PS5_be.accdb");
             try {
                 conn.Open();
-                // Get all locations
-                string query = "SELECT location FROM WebRef_DF_Locations";
+                // Get all catalog items
+                string query = "SELECT Item FROM Catalog_Items";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
                 OleDbDataReader reader = cmd.ExecuteReader();
-
                 while (reader.Read()) {
-                    locations.Add(reader.GetString(0));
+                    items.Add(reader.GetString(0));
                 }
                 reader.Close();
 
                 // Send data
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string locationsJson = serializer.Serialize(locations);
-                Response.Write(locationsJson);
+                string itemsJson = serializer.Serialize(items);
+                Response.Write(itemsJson);
                 conn.Close();
             } catch (Exception err) {
                 conn.Close();

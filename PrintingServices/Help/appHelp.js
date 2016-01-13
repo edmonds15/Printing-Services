@@ -1,6 +1,7 @@
 ﻿$(function () {
-    $("#help").css("width", "" + $("#ui-id-12").width() + "px");
+    // Fix the width to be inside the tab
+    $("#help").css("width", "" + $("#ui-id-16").width() + "px");
     $(window).resize(function () {
-        $("#help").css("width", "" + $("#ui-id-12").width() + "px");
+        $("#help").css("width", "" + $("#ui-id-16").width() + "px");
     });
 });

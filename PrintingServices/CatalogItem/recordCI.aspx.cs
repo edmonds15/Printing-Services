@@ -7,8 +7,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace PrintingServices.DistrictForms {
-    public partial class recordDF : System.Web.UI.Page {
+namespace PrintingServices.CatalogItem {
+    public partial class recordCI : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
             // Check whether the user is authorized
             string user = HttpContext.Current.User.Identity.Name.Split("\\".ToCharArray())[1];
@@ -22,11 +22,13 @@ namespace PrintingServices.DistrictForms {
             }
 
             // Pull info from request
-            string form = Request.Form["form"].ToString();
+            string item = Request.Form["item"].ToString();
             int num = Convert.ToInt32(Request.Form["num"].ToString());
             string to = Request.Form["to"].ToString();
             string comment = Request.Form["comment"].ToString();
-            string description = "(" + num + ") " + form;
+            string keyCode = Request.Form["keyCode"].ToString();
+            string acctCode = Request.Form["acctCode"].ToString();
+            string description = num + " " + item;
             string received = DateTime.Now.ToShortDateString();
             string output = "";
 
@@ -59,25 +61,27 @@ namespace PrintingServices.DistrictForms {
             try {
                 conn.Open();
                 // Get the next reference number
-                string query = @"SELECT * FROM [PS Jobs] WHERE Reference_No LIKE 'FormReq #%' ORDER BY ID DESC";
+                string query = @"SELECT * FROM [PS Jobs] WHERE Reference_No LIKE 'ItemReq #%' ORDER BY ID DESC";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
                 OleDbDataReader reader = cmd.ExecuteReader();
                 // If no reference numbers found, set to 1
                 string refNo = "";
-                string newRefNo = "FormReq #1";
+                string newRefNo = "ItemReq #1";
                 // If found, set to next number
                 if (reader.Read()) {
                     refNo = reader.GetString(reader.GetOrdinal("Reference_No")).Split("#".ToCharArray())[1];
-                    newRefNo = "FormReq #" + (Convert.ToInt32(refNo) + 1);
+                    newRefNo = "ItemReq #" + (Convert.ToInt32(refNo) + 1);
                 }
                 reader.Close();
 
                 // Put values into database
-                query = @"INSERT INTO [PS Jobs] (Reference_No, Description, KeyCode, Account_Code, Requester, Requester_phone, Requester_school_dept, Deliver_To, Date_Recieved, Job_Status, Clicks_only, Notes)
-                                VALUES (@refNo, @desc, 30, '9700 13 0570 097 7441 0000', @name, @phone, @requesterLoc, @to, @received, 'Processed', True, @comment)";
+                query = @"INSERT INTO [PS Jobs] (Reference_No, Description, KeyCode, Account_Code, Requester, Requester_phone, Requester_school_dept, Deliver_To, Date_Recieved, Job_Status, Notes)
+                                VALUES (@refNo, @desc, @keyCode, @acctCode, @name, @phone, @requesterLoc, @to, @received, 'Processed', @comment)";
                 cmd = new OleDbCommand(query, conn);
                 cmd.Parameters.AddWithValue("@refNo", newRefNo);
                 cmd.Parameters.AddWithValue("@desc", description);
+                cmd.Parameters.AddWithValue("@keyCode", keyCode);
+                cmd.Parameters.AddWithValue("@acctCode", acctCode);
                 cmd.Parameters.AddWithValue("@name", name);
                 cmd.Parameters.AddWithValue("@phone", phone);
                 cmd.Parameters.AddWithValue("@requesterLoc", requesterLoc);
@@ -88,26 +92,24 @@ namespace PrintingServices.DistrictForms {
                 // Write output
                 int rows = cmd.ExecuteNonQuery();
 
-                // Get the ID of the newly created job
+                // Get Job ID
                 query = @"SELECT ID FROM [PS Jobs] WHERE Reference_No = @refNo";
                 cmd = new OleDbCommand(query, conn);
                 cmd.Parameters.AddWithValue("@refNo", newRefNo);
                 reader = cmd.ExecuteReader();
-
                 int id = 0;
                 if (reader.Read()) {
-                    id = reader.GetInt32(0);
+                    id = reader.GetInt32(reader.GetOrdinal("ID"));
                 }
-                reader.Close();
 
-                // Write ID to output
                 output += "Request ID:" + id + "\n";
 
                 if (rows == 1) {
-                    output += rows + " row affected from recordDF.\n";
+                    output += rows + " row affected from recordCI.\n";
                 } else {
-                    output += rows + " rows affected from recordDF. Error.\n";
+                    output += rows + " rows affected from recordCI. Error.\n";
                 }
+
                 conn.Close();
                 Response.Write(output);
             } catch (Exception err) {

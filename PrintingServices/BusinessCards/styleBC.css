@@ -12,24 +12,12 @@ img {
     width: 189px;
     height: 108px;
 }
-.spinner {
-    width: 30px;
+#sideControl {
+    display: none;
 }
-#keyCode {
+#keyCodeBC {
     width: 70px;
 }
-.acct4Digit {
-    width: 50px;
-}
-.acct3Digit {
-    width: 40px;
-}
-.acct2Digit {
-    width: 30px;
-}
-.left {
-    text-align: right;
-}
-.right {
-    text-align: left;
+label[for="commentsBC"] {
+    margin-left: 20px;
 }

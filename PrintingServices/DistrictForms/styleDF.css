@@ -1,9 +1,6 @@
-﻿.entry {
-    margin-top: 2em;
+﻿.entryDF > label {
+    margin-left: 20px;
 }
-label {
-    margin-left: 5px;
-}
-.spinner {
-    width: 30px;
+.formDF {
+    width: 120px;
 }

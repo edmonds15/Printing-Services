@@ -1,0 +1,18 @@
+﻿#letter > label {
+    margin-left: 10px;
+}
+#letter > input {
+    margin-right: 10px;
+}
+#letter > select {
+    margin-right: 10px;
+}
+#letter > #schoolLetter {
+    width: 128px;
+}
+#letter > #phoneLetter, #faxLetter {
+    width: 120px;
+}
+#keyCodeLetter {
+    width: 70px;
+}

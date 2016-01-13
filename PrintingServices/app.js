@@ -8,8 +8,9 @@
     });
 
     // Set a resize sensor on the body to make the blue height dependent on the tab height
+    // Resize sensor plugin fires every time the body height changes
     new ResizeSensor($("#body"), function () {
-        var mainHeight = $(".container:first").height() + 200;
+        var mainHeight = $(".container:first").height() + 150;
         $("#main").css("height", mainHeight + "px");
     });
 });

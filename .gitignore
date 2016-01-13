@@ -4,6 +4,8 @@
 *.user
 *.config
 *.txt
+*.suo
+*.db
 bin/
 obj/
 Properties/

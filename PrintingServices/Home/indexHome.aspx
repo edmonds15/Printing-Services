@@ -10,8 +10,12 @@
         <li>Request business cards to be printed</li>
         <li>Make a custom printing request</li>
         <li>Request a district form to be printed</li>
+        <li>Request a catalog item</li>
         <li>Search through your history of requests</li>
     </ul> 
-    If you need assistance or contact information, check the Help tab.<br />
+    Print Shop contact information:<br />
+    Phone: x7097<br />
+    Email: printjobs@edmonds.wednet.edu<br />
+    If you need assistance, check the Help tab.<br />
     Thank you!
 </div>

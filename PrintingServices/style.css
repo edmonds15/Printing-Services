@@ -5,11 +5,35 @@
 #main {
     background-color: #002244;
 }
-#ui-id-2, #ui-id-4, #ui-id-6, #ui-id-8, #ui-id-10, #ui-id-12 {
+#ui-id-2, #ui-id-4, #ui-id-6, #ui-id-8, #ui-id-10, #ui-id-12, #ui-id-14, #ui-id-16 {
     background-color: #69BE28;
 }
 .row {
     margin-top: 2em;
+}
+.left {
+    text-align: right;
+}
+.right {
+    text-align: left;
+}
+.entryDF, .entryCI {
+    margin-top: 2em;
+}
+.spinner {
+    width: 40px;
+}
+.acct4Digit {
+    width: 50px;
+}
+.acct3Digit {
+    width: 40px;
+}
+.acct2Digit {
+    width: 30px;
+}
+input:disabled {
+    background-color: lightgrey;
 }
 #tab {
     display: none;

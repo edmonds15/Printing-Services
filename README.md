@@ -5,6 +5,7 @@ This application was created using ASP.net, along with the [jQuery](https://jque
 Note that these files are for reference, and will not work by themselves.  
 You can find the published version [here](infosysapps.edmonds.wednet.edu/print) when connected to our network.  
 Credit to Github user marcj for the [css-element-queries](https://github.com/marcj/css-element-queries) plugin.  
+Credit to the moment team for the [moment.js](http://momentjs.com/) plugin
 Thank You.  
   
 Written by Jonathan Phippen, on behalf of Edmonds School District, Summer 2015

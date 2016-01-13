@@ -7,8 +7,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace PrintingServices.DistrictForms {
-    public partial class recordDF : System.Web.UI.Page {
+namespace PrintingServices.Letterhead {
+    public partial class recordLetter : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
             // Check whether the user is authorized
             string user = HttpContext.Current.User.Identity.Name.Split("\\".ToCharArray())[1];
@@ -21,16 +21,20 @@ namespace PrintingServices.DistrictForms {
                 Response.End();
             }
 
-            // Pull info from request
-            string form = Request.Form["form"].ToString();
-            int num = Convert.ToInt32(Request.Form["num"].ToString());
-            string to = Request.Form["to"].ToString();
-            string comment = Request.Form["comment"].ToString();
-            string description = "(" + num + ") " + form;
+            // Get info from request
+            string schoolName = Request.Form["school"].ToString();
+            string schoolAddress = Request.Form["address"].ToString();
+            string schoolPhone = Request.Form["phone"].ToString();
+            string schoolFax = Request.Form["fax"].ToString();
+            string names = Request.Form["names"].ToString();
+            string keyCode = Request.Form["keyCode"].ToString();
+            string acctCode = Request.Form["acctCode"].ToString();
+            string description = "Letterhead: " + schoolName;
+            string info = schoolName + ", " + schoolAddress + ", " + schoolPhone + ", " + schoolFax + ", " + names;
             string received = DateTime.Now.ToShortDateString();
             string output = "";
 
-            // Get name, phone, and location from AD
+            // Get user info from AD
             string name = "";
             string phone = "";
             string requesterLoc = "";
@@ -55,60 +59,61 @@ namespace PrintingServices.DistrictForms {
                 Response.End();
             }
 
+            // Connect to database
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\miso\shares\Groups\DCP\PS Data\PS5_be.accdb");
             try {
                 conn.Open();
-                // Get the next reference number
-                string query = @"SELECT * FROM [PS Jobs] WHERE Reference_No LIKE 'FormReq #%' ORDER BY ID DESC";
+                // Get highest reference number
+                string query = @"SELECT * FROM [PS Jobs] WHERE Reference_No LIKE 'LetterReq #%' ORDER BY ID DESC";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
                 OleDbDataReader reader = cmd.ExecuteReader();
-                // If no reference numbers found, set to 1
+                // Set this reference number one higher
                 string refNo = "";
-                string newRefNo = "FormReq #1";
-                // If found, set to next number
+                string newRefNo = "LetterReq #1";
                 if (reader.Read()) {
                     refNo = reader.GetString(reader.GetOrdinal("Reference_No")).Split("#".ToCharArray())[1];
-                    newRefNo = "FormReq #" + (Convert.ToInt32(refNo) + 1);
+                    newRefNo = "LetterReq #" + (Convert.ToInt32(refNo) + 1);
                 }
                 reader.Close();
 
-                // Put values into database
-                query = @"INSERT INTO [PS Jobs] (Reference_No, Description, KeyCode, Account_Code, Requester, Requester_phone, Requester_school_dept, Deliver_To, Date_Recieved, Job_Status, Clicks_only, Notes)
-                                VALUES (@refNo, @desc, 30, '9700 13 0570 097 7441 0000', @name, @phone, @requesterLoc, @to, @received, 'Processed', True, @comment)";
+                // Insert info into database
+                query = @"INSERT INTO [PS Jobs] (Reference_No, Description, KeyCode, Account_Code, Requester, Requester_phone, Requester_school_dept, Date_Recieved, Instructions, Job_Status)
+                                VALUES (@refNo, @desc, @keyCode, @acctCode, @name, @phone, @requesterLoc, @received, @info, 'Processed')";
                 cmd = new OleDbCommand(query, conn);
                 cmd.Parameters.AddWithValue("@refNo", newRefNo);
                 cmd.Parameters.AddWithValue("@desc", description);
+                cmd.Parameters.AddWithValue("@keyCode", keyCode);
+                cmd.Parameters.AddWithValue("@acctCode", acctCode);
                 cmd.Parameters.AddWithValue("@name", name);
                 cmd.Parameters.AddWithValue("@phone", phone);
                 cmd.Parameters.AddWithValue("@requesterLoc", requesterLoc);
-                cmd.Parameters.AddWithValue("@to", to);
                 cmd.Parameters.AddWithValue("@received", received);
-                cmd.Parameters.AddWithValue("@comment", comment);
+                cmd.Parameters.AddWithValue("@info", info);
 
-                // Write output
                 int rows = cmd.ExecuteNonQuery();
 
-                // Get the ID of the newly created job
+                // Get Job ID
                 query = @"SELECT ID FROM [PS Jobs] WHERE Reference_No = @refNo";
                 cmd = new OleDbCommand(query, conn);
                 cmd.Parameters.AddWithValue("@refNo", newRefNo);
                 reader = cmd.ExecuteReader();
-
                 int id = 0;
                 if (reader.Read()) {
-                    id = reader.GetInt32(0);
+                    id = reader.GetInt32(reader.GetOrdinal("ID"));
                 }
-                reader.Close();
 
-                // Write ID to output
+                conn.Close();
+
+                // Write ID
                 output += "Request ID:" + id + "\n";
 
+                // Write number of rows written
                 if (rows == 1) {
-                    output += rows + " row affected from recordDF.\n";
+                    output += rows + " row affected from recordLetter.";
                 } else {
-                    output += rows + " rows affected from recordDF. Error.\n";
+                    output += rows + " rows affected from recordLetter. Error.";
                 }
-                conn.Close();
+
                 Response.Write(output);
             } catch (Exception err) {
                 conn.Close();

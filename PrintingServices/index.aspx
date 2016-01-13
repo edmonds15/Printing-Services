@@ -29,17 +29,19 @@
             <h3>Logged in as: <asp:Literal ID="name" runat="server" /></h3>
             <div class="row error" id="error" runat="server">
                 ERROR:<br />
-                Sorry, something went wrong. Please contact for assistance.<br />
+                Sorry, something went wrong. Please contact Technology for assistance.<br />
                 Error message: <b><asp:Literal ID="errormsg" runat="server" /></b>
             </div>
             <div class="row" id="body" runat="server">
                 <div id="tabs">
                     <ul>
                         <li><a href="Home/indexHome.aspx">Home</a></li>
-                        <li><a href="BusinessCards/indexBC.aspx">Business Cards Request</a></li>
-                        <li><a href="CustomPrintshop/indexCP.aspx">Custom Print Shop Request</a></li>
-                        <li><a href="DistrictForms/indexDF.aspx">District Forms Request</a></li>
-                        <li><a href="History/indexHistory.aspx">Request History</a></li>
+                        <li><a href="BusinessCards/indexBC.aspx">Business Cards</a></li>
+                        <li><a href="Letterhead/indexLetter.aspx">Letterhead</a></li>
+                        <li><a href="CustomPrintshop/indexCP.aspx">Custom Print</a></li>
+                        <li><a href="DistrictForms/indexDF.aspx">District Forms</a></li>
+                        <li><a href="CatalogItem/indexCI.aspx">Catalog Item</a></li>
+                        <li><a href="History/indexHistory.aspx">History</a></li>
                         <li><a href="Help/indexHelp.aspx">Help</a></li>
                     </ul>
                 </div>

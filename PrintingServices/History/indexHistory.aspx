@@ -4,7 +4,13 @@
 <link rel="stylesheet" href="History/styleHistory.css" />
 
 <div class="container" id="history">
-    <h4>History</h4>        
+    <h4>History</h4>
+    <div class="row error" id="historyError">
+        ERROR:<br />
+        Sorry, something went wrong. Please contact Technology for assistance.<br />
+        Error message: 
+    </div>
+    <div id="historyBody">
         <div class="row">
             <div class="col-xs-2">
                 <b>Request ID</b>
@@ -22,5 +28,6 @@
                 <b>Date Completed</b>
             </div>
         </div>
-    <div id="historyEntries"></div>
+        <div id="historyEntries"></div>
+    </div>
 </div>

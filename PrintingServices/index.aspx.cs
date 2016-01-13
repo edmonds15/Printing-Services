@@ -10,6 +10,9 @@ using System.Data.SqlClient;
 
 namespace PrintingServices {
     public partial class index : System.Web.UI.Page {
+        // Names of accounts that are excepted from check
+        string[] exceptions = { "information" };
+
         protected void Page_Load(object sender, EventArgs e) {
             error.Visible = false;
 
@@ -24,11 +27,11 @@ namespace PrintingServices {
             name.Text = getUserName(user);
 
             // Don't let non-staff people in
-            if (!getUserType(user).Equals("staff")) {
+            if (!PrintingServices.Validate.isStaff(user)) {
                 body.Visible = false;
                 error.Visible = true;
                 if (errormsg.Text == "") {
-                    errormsg.Text = "Unauthorized Credentials.";
+                    errormsg.Text = "Unauthorized Credentials. " + user;
                 }
             }
             
@@ -63,6 +66,9 @@ namespace PrintingServices {
         }
 
         private string getUserType(string user) {
+            if (exceptions.Contains(user)) {
+
+            }
             try {
                 // Pull their employee type from AD
                 DirectoryEntry entry = new DirectoryEntry("LDAP://edmonds.wednet.edu");

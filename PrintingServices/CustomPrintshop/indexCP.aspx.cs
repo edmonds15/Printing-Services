@@ -8,7 +8,8 @@ using System.Web.UI.WebControls;
 namespace PrintingServices.CustomPrintshop {
     public partial class index : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
-            Session["tab"] = "2";
+            // Set recently viewed tab as Custom Printshop tab.
+            Session["tab"] = "3";
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 namespace PrintingServices.History {
     public partial class getHistory : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
+            // Check whether the user is authorized
             string user = HttpContext.Current.User.Identity.Name.Split("\\".ToCharArray())[1];
             if (Session["user"] != null) {
                 user = Session["user"].ToString();
@@ -21,6 +22,7 @@ namespace PrintingServices.History {
                 Response.End();
             }
 
+            // Get name info from AD
             string name = "";
             string firstName = "";
             string lastName = "";
@@ -37,26 +39,27 @@ namespace PrintingServices.History {
                 firstName = result.Properties["givenname"][0].ToString();
                 lastName = result.Properties["sn"][0].ToString();
             } catch (Exception err) {
-                Response.Write(err);
+                Response.Write(err.Message);
                 Response.End();
             }
-
             List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
-            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\miso\shares\Groups\DCP\Testing\Jonathan\PS4_be_Jonathan.accdb");
+            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\miso\shares\Groups\DCP\PS Data\PS5_be.accdb");
             try {
                 conn.Open();
-                string query = "SELECT Reference_No, Description, Date_Recieved, Job_Status, Date_completed FROM [PS Jobs] WHERE Requester = @requesterFull OR Requester = @requesterPartial ORDER BY ID DESC";
+                // Get all info from database that matches user
+                string query = "SELECT ID, Description, Date_Recieved, Job_Status, Date_completed FROM [PS Jobs] WHERE Requester = @requesterFull OR Requester = @requesterPartial ORDER BY ID DESC";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
                 cmd.Parameters.AddWithValue("@requesterFull", name);
                 cmd.Parameters.AddWithValue("@requesterPartial", firstName + " " + lastName);
                 OleDbDataReader reader = cmd.ExecuteReader();
 
+                // Save all found entries
                 while (reader.Read()) {
                     Dictionary<string, string> entry = new Dictionary<string, string>();
-                    if (!reader.IsDBNull(reader.GetOrdinal("Reference_No"))) {
-                        entry.Add("refNo", reader.GetString(reader.GetOrdinal("Reference_No")));
+                    if (!reader.IsDBNull(reader.GetOrdinal("ID"))) {
+                        entry.Add("id", reader.GetInt32(reader.GetOrdinal("ID")).ToString());
                     }
-                    if (!reader.IsDBNull(reader.GetOrdinal("Date_Recieved"))) {
+                    if (!reader.IsDBNull(reader.GetOrdinal("Description"))) {
                         entry.Add("description", reader.GetString(reader.GetOrdinal("Description")));
                     }
                     if (!reader.IsDBNull(reader.GetOrdinal("Date_Recieved"))) {
@@ -72,13 +75,14 @@ namespace PrintingServices.History {
                 }
                 reader.Close();
 
+                // Send entries
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string entriesJson = serializer.Serialize(entries);
                 Response.Write(entriesJson);
                 conn.Close();
             } catch (Exception err) {
                 conn.Close();
-                Response.Write(err);
+                Response.Write(err.Message);
             }
         }
     }

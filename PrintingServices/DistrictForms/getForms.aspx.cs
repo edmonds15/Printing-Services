@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 namespace PrintingServices.DistrictForms {
     public partial class getForms : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
+            // Check whether the user is authorized
             string user = HttpContext.Current.User.Identity.Name.Split("\\".ToCharArray())[1];
             if (Session["user"] != null) {
                 user = Session["user"].ToString();
@@ -21,10 +22,11 @@ namespace PrintingServices.DistrictForms {
             }
 
             List<string> forms = new List<string>();
-            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\miso\shares\Groups\DCP\Testing\Jonathan\PS4_be_Jonathan.accdb");
+            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\miso\shares\Groups\DCP\PS Data\PS5_be.accdb");
             try {
                 conn.Open();
-                string query = "SELECT form FROM WebRef_District_Forms";
+                // Get all district forms
+                string query = "SELECT Form FROM [District Forms Table]";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
                 OleDbDataReader reader = cmd.ExecuteReader();
                 while (reader.Read()) {
@@ -32,6 +34,7 @@ namespace PrintingServices.DistrictForms {
                 }
                 reader.Close();
 
+                // Send data
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string formsJson = serializer.Serialize(forms);
                 Response.Write(formsJson);

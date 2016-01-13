@@ -7,31 +7,20 @@
     color: blue;
 }
 #desc {
-    width: 250px;
+    width: 300px;
 }
 #fulfill {
     width: 100px;
+    cursor: text;
+}
+#numCP {
+    width: 30px;
 }
 #attach {
     display: inline;
 }
-#keyCode {
+#keyCodeCP {
     width: 70px;
-}
-.acct4Digit {
-    width: 50px;
-}
-.acct3Digit {
-    width: 40px;
-}
-.acct2Digit {
-    width: 30px;
-}
-.left {
-    text-align: right;
-}
-.right {
-    text-align: left;
 }
 #instruct {
     overflow: auto;
